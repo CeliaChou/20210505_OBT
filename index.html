@@ -1,0 +1,1902 @@
+<?php
+    require_once '/var/www/html/digeamweb/wp-config.php';
+    global $wpdb;
+    function getValue($method, $string) {  
+        $str = explode(",", $string);  
+        $max=sizeof($str);  
+        for($i=0; $i<$max; $i++) {    
+            $tmp = trim($str[$i]);    
+            global $$tmp;    
+            switch ($method) {      
+                case "GET" :       
+                    $tmp = $_GET[$tmp];      
+                    break;      
+                case "POST" :        
+                    $$tmp = $_POST[$tmp];        
+                    break;      
+                case "COOKIE" :        
+                    $$tmp = $_COOKIE[$tmp];        
+                    break;      
+                case "SERVER" :        
+                    $$tmp = $_SERVER[$tmp];        
+                    break;      
+                case "REQUEST" :        
+                    $$tmp = $_REQUEST[$tmp];        
+                    break;    
+            }    
+            $$tmp = trim($$tmp);  
+        }
+    }
+
+    $_COOKIE_DOMAIN=".digeam.com";
+
+    if($_COOKIE["StrID"]){
+        $ATO_StrID   = $_COOKIE["StrID"];
+    } else {
+        $ATO_StrID   = '';
+        SetCookie("return_url",base64_encode("https://".$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI]),0,"/",$_COOKIE_DOMAIN);
+    }
+    include "/var/www/html/digeamweb/inc/wcf.php";
+
+    $nowDate=date("YmdHis");
+    getValue("REQUEST","invite_code");
+    $jsversion = "1.08";
+?>
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>《王者世界 Online》 OBT活動頁面</title>
+    <meta property="og:description" content="《王者世界 Online》 OBT活動頁面" />
+    <meta property="og:title" content="《王者世界 Online》 OBT活動頁面" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://ato.digeam.com/event/20210505/" />
+    <meta property="og:site_name" content="《王者世界 Online》 OBT活動頁面 - ato.digeam.com" />
+    <meta property="og:locale" content="zh_tw" />
+    <meta property="article:author" content="https://www.facebook.com/DigeamAtlantica/" />
+    <meta property="og:image" content="https://ato.digeam.com/event/20210505/img/fb_share.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="628" />
+    <meta name="author" content="DiGeam" />
+    <meta name="keywords" content="Digeam 掘夢網,王者世界,Atlantica Online,王者世界Atlantica,線上遊戲,角色扮演,免費遊戲,3D,史實，宏觀世界，關羽，TBS，回合制遊戲，戰旗，PVE，PVP，MMORPG，傭兵，NEXON，NDOOR，VALOFE" />
+    <meta name="Resource-type" content="Document" />
+    <link rel="icon" href="/img/favicon.ico" sizes="16x16">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo $jsversion; ?>">
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PB8RXNM');</script>
+</head>
+<body>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PB8RXNM"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v9.0&appId=2890834524481360&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="leftmenu">
+        <a href="/index"><div class="leftBTN">進入官網</div></a>
+        <a href="https://atowiki.digeam.com" target="_blank"><div class="leftBTN">遊戲百科</div></a>
+        <a href="https://ato.digeam.com/pwinit/" target="_blank"><div class="leftBTN leftBTN_pop">二次密碼初始化</div></a>
+        <div class="left_small">
+            <a href="https://www.youtube.com/playlist?list=PL4diK25VNyLMiOjE_EhHF37wpaB5G_Ucw" target="_blank"><div class="yt"></div></a>
+            <a href="https://www.facebook.com/DigeamAtlantica/" target="_blank"><div class="fb"></div></a>
+            <a href="https://forum.gamer.com.tw/A.php?bsn=13208" target="_blank"><div class="baha"></div></a>
+        </div>
+        <div class="left_qrcode_box">
+            <div class="left_qrcode"></div>
+            <div class="left_content">
+                <h4>加入官方交流區</h4>
+                <p>搶先取得第一手消息<br>與不定期好禮</p>
+            </div>
+        </div>
+    </div>
+    <div class="part0"  id="part0">
+        <a href="/index"><picture>
+            <source srcset="imgp/LOGO.webp" type="imgp/webp">
+            <img  src="img/LOGO.png">
+        </picture></a>
+        <div class="part0btn_box">
+            <a href="https://ato.digeam.com/event/20210209/" target="_blank"><div class="part0BTN">事前預約</div></a>
+            <a href="/script/register.html"><div class="part0BTN">註冊會員</div></a>
+            <a href="/download"><div class="part0BTN">遊戲下載</div></a>
+        </div>
+    </div>
+    <div class="myTabs">
+        <ul class="tabs tabsBTN_box">
+            <li><a href="#tab1" class="part_tab"><div class="tabsBTN_active"><h2>預創搶先送</h2></div></a></li>
+            <li><a href="#tab2" class="part_tab"><div class="tabsBTN"><h2>歡慶開服活動</h2></div></a></li>
+            <li><a href="#tab3" class="part_tab"><div class="tabsBTN"><h2>精彩社群活動</h2></div></a></li>
+            <li><a href="#tab4" class="part_tab"><div class="tabsBTN"><h2>師徒成就之路</h2></div></a></li>
+        </ul>
+        <div class="tab_dec"></div>
+        <div class="tab_container">
+            <div id="tab1" class="tab_content">
+                <!-- 0505修改 start -->
+                <div class="totop scrollspy_item" data-scroll="part0" href="#part0">TOP</div>
+                <!-- 0505修改 end -->
+                <div class="part1 part"  id="part1">
+                    <div class="part_box">
+                        <h1 class="tab_title">預創搶先送</h1>
+                        <div class="part_content">
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動期間內，搶先下載OBT主程式，創建角色即可取得專屬禮包！</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <!-- 0505修改 -->
+                            <h4>05/07 (五) - 05/12 (三) 14:00</h4>
+                            <!-- 0505修改 END-->
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>OBT後至 5/26 (三) 23:59 前至領獎專區領取獎勵</h4>
+                            <table class="reword">
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon1-1.webp" type="imgp/webp">
+                                                <img  src="img/icon1-1.jpg">
+                                            </picture>
+                                            <p>三種傭兵自選封印球(不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                    <!-- 0503修改 start -->
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用後可自選傭兵：華盛頓/田禹治/克莉絲汀<br>
+                                        傭兵最高等級上限：140級 (依據主角等級)</p></th>
+                                </tr>
+                            </table>
+                            <picture>
+                                <source srcset="imgp/part1_man.webp" type="imgp/webp">
+                                <img  src="img/part1_man.png">
+                            </picture>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>每個帳號僅能領取一次獎勵，若同帳號內有多個角色不會累積獎勵。</li>
+                                <li>請於活動時間內創立角色，且於角色選單中擁有該角色者，才可領取獎勵。</li>
+                                <li>超過時間未領取視為放棄獎勵，恕不補發，請玩家特別注意。</li>
+                                <li>活動獎勵為不可交易性質，領取後將會直接發送至遊戲內「領取道具」中。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                                <!-- 0503修改 end -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="tab2" class="tab_content">
+                <div class="scrollspy_box">
+                    <div data-scroll="part0" class="scrollspy_item" href="#part0">
+                        <p class="scrollspy_p">回到首頁</p>
+                    </div>
+                    <div data-scroll="part2-1" class="scrollspy_item active fristevent" href="#part2-1">
+                        <p class="scrollspy_p p_active">登入加碼送</p>
+                    </div>
+                    <div data-scroll="part2-2" class="scrollspy_item" href="#part2-2">
+                        <p class="scrollspy_p">衝等大挑戰</p>
+                    </div>
+                    <div data-scroll="part2-3" class="scrollspy_item" href="#part2-3">
+                        <p class="scrollspy_p">小Q烘焙坊</p>
+                    </div>
+                    <div data-scroll="part2-4" class="scrollspy_item" href="#part2-4">
+                        <p class="scrollspy_p">最強王者公會</p>
+                    </div>
+                    <div data-scroll="part2-5" class="scrollspy_item" href="#part2-5">
+                        <p class="scrollspy_p">王者之日開跑</p>
+                    </div>
+                    <div data-scroll="part2-6" class="scrollspy_item" href="#part2-6">
+                        <p class="scrollspy_p">首儲拿好禮</p>
+                    </div>
+                    <div data-scroll="part2-7" class="scrollspy_item" href="#part2-7">
+                        <p class="scrollspy_p">消費放肆領</p>
+                    </div>
+                </div>
+                <div class="part2-1 part"  id="part2-1">
+                    <div class="part_box">
+                        <h1 class="tab_title">歡慶開服活動</h1>
+                        <div class="part_content">
+                            <div class="part_title">登入加碼送</div>
+                            <div class="part_dec"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動期間內，只要登入遊戲即可獲得S級坐騎等豐富獎勵。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/13 (四) 14:00 - 06/10 (四) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span> 6/10 (四) 23:59 前至領獎專區領取獎勵。</h4>
+                            <table class="reword">
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-1-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-1-1.jpg">
+                                            </picture>
+                                            <p>不死骨龍<br>(30天/不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>提升主角攻擊力：1180-1280；防禦力：21000；力量、敏捷、智力：480；體力：580；觸發魔法：死亡之痕 Lv20；提高移動速度：30%。</p></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-1-2.webp" type="imgp/webp">
+                                                <img  src="img/icon2-1-2.jpg">
+                                            </picture>
+                                            <p>[活動]愛情巧克力<br>(不可交易)X30</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用後可於2小時內獲得經驗值增加30%與防禦力增加30%之效果。</p></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-1-3.webp" type="imgp/webp">
+                                                <img  src="img/icon2-1-3.jpg">
+                                            </picture>
+                                            <p>[活動]友情巧克力<br>(不可交易)X30</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用後可於2小時內獲得製作量增加30%與攻擊力增加30%之效果。</p></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-1-4.webp" type="imgp/webp">
+                                                <img  src="img/icon2-1-4.jpg">
+                                            </picture>
+                                            <p>靈魂結晶箱子<br>(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>開啟後獲得10個不死鳥、巨人、幻獸或龍之靈魂結晶其中之一。</p></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-1-5.webp" type="imgp/webp">
+                                                <img  src="img/icon2-1-5.jpg">
+                                            </picture>
+                                            <p>靈魂寶石箱子<br>(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>開啟後獲得10個不死鳥、巨人、幻獸或龍之靈魂寶石其中之一。</p></th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>本活動獎勵一個帳號僅限領取一次。</li>
+                                <li>超過時間未領取視為放棄獎勵，恕不補發，請玩家特別注意。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫，領取後將會直接發送至遊戲內「領取道具」中。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2-2 part"  id="part2-2">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">衝等大挑戰</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動時間內，主角等級達到120級，即可獲得獎勵。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/13 (四) 14:00 - 05/23 (日) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>於 05/30 (日) 23:59 前至領獎專區領取獎勵</h4>
+                            <table class="reword">
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-2-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-2-1.jpg">
+                                            </picture>
+                                            <p>女神雅典娜的祝福<br>(不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>可用於主角 130 等轉職的道具。</p></th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>本活動獎勵一個帳號僅限領取一次。</li>
+                                <li>超過時間未領取視為放棄獎勵，恕不補發，請玩家特別注意。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫，領取後將會直接發送至遊戲內「領取道具」中。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2-3 part"  id="part2-3">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">小Q烘焙坊</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動期間內，消滅怪物收集活動材料，可透過活動製作或兌換獲得多樣道具或增益效果。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/13 (四) 14:00 - 05/27 (四) 維護前</h4>
+                            <div class="part_smalldec">活動內容</div>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step1.材料收集</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C">
+                                        <p class="table_textalign_L table_ml_25">一.怪物掉落：消滅遊戲中的任何怪物，有機率可獲得三種兌換材料。</p>
+                                        <div class="Q_box">
+                                            <div class="q table_color_W">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-1.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-1.jpg">
+                                                </picture>
+                                                <h4>小Q神秘的夢</h4>
+                                            </div>
+                                            <div class="q table_color_W">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-2.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-2.jpg">
+                                                </picture>
+                                                <h4>小Q甜甜的夢</h4>
+                                            </div>
+                                            <div class="q table_color_W">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-3.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-3.jpg">
+                                                </picture>
+                                                <h4>小Q美味的夢</h4>
+                                            </div>
+                                        </div>
+                                        <p class="table_textalign_L table_ml_25">二.在線獎勵：每日累積在線時間達到1小時、2小時、3小時與4小時可獲得獎勵。</p>
+                                        <div class="Q_box">
+                                            <div class="stay_Q table_color_W">
+                                                <h4 class="table_line_b">一小時</h4>
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-1.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-1.jpg">
+                                                </picture>
+                                                <h4>小Q神秘的夢X10</h4>
+                                            </div>
+                                            <div class="stay_Q table_color_W">
+                                                <h4 class="table_line_b">二小時</h4>
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-2.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-2.jpg">
+                                                </picture>
+                                                <h4>小Q甜甜的夢X10</h4>
+                                            </div>
+                                            <div class="stay_Q table_color_W">
+                                                <h4 class="table_line_b">三小時</h4>
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-3.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-3.jpg">
+                                                </picture>
+                                                <h4>小Q美味的夢X10</h4>
+                                            </div>
+                                            <div class="stay_Q table_color_W">
+                                                <h4 class="table_line_b">四小時</h4>
+                                                <!-- 0511更改start -->
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-15.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-15.jpg">
+                                                </picture>
+                                                <!-- 0511更改END -->
+                                                <h4>夢之硬幣X6</h4>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step2.製作兌換券</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C Q_box">
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-4.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-4.jpg">
+                                        </picture>
+                                        <!-- 0512修改 start -->
+                                        <h4>馬卡龍兌換券X1=小Q神秘的夢X5、小Q甜甜的夢X5、小Q美味的夢X5</h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C Q_box">
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-5.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-5.jpg">
+                                        </picture>
+                                        <h4>瑪德蓮兌換券X1=小Q神秘的夢X10、小Q甜甜的夢X10、小Q美味的夢X10</h4>
+                                        <!-- 0512修改 end -->
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step3.兌換麵包</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C Q_box">
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-4.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-4.jpg">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/arrow.webp" type="imgp/webp">
+                                            <img class="marginLR_10"src="img/arrow.png">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-6.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-6.jpg">
+                                        </picture>
+                                        <h4>檸檬馬卡龍</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-7.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-7.jpg">
+                                        </picture>
+                                        <h4>薄荷馬卡龍</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-8.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-8.jpg">
+                                        </picture>
+                                        <h4>草莓馬卡龍</h4>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C Q_box">
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-5.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-5.jpg">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/arrow.webp" type="imgp/webp">
+                                            <img class="marginLR_10" src="img/arrow.png">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-9.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-9.jpg">
+                                        </picture>
+                                        <h4>原味瑪德蓮</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-10.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-10.jpg">
+                                        </picture>
+                                        <h4>紅茶瑪德蓮</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-11.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-11.jpg">
+                                        </picture>
+                                        <h4>抹茶瑪德蓮</h4>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step4.增益效果</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C">
+                                        <p>六種麵包提供不同的增益效果。</p>
+                                        <div class="Q_box marginB_1em">
+                                            <div class="q table_color_W">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-12.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-12.jpg">
+                                                </picture>
+                                                <h4>攻擊力增加</h4>
+                                            </div>
+                                            <div class="q table_color_W">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-13.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-13.jpg">
+                                                </picture>
+                                                <h4>防禦力增加</h4>
+                                            </div>
+                                            <div class="q table_color_W">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-14.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-14.jpg">
+                                                </picture>
+                                                <h4>經驗值增加</h4>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step5.硬幣兌換</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C Q_box">
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-1.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-1.jpg">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-2.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-2.jpg">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-3.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-3.jpg">
+                                        </picture>
+                                        <h4>個別材料3/15/30個</h4>
+                                        <picture>
+                                            <source srcset="imgp/arrow.webp" type="imgp/webp">
+                                            <img class="marginLR_10"  src="img/arrow.png">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-15.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-15.jpg">
+                                        </picture>
+                                        <h4>夢之硬幣1/5/10個</h4>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step6.兌換道具</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C Q_box">
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-15.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-15.jpg">
+                                        </picture>
+                                        <h4>Xn</h4>
+                                        <picture>
+                                            <source srcset="imgp/arrow.webp" type="imgp/webp">
+                                            <img class="marginLR_10"  src="img/arrow.png">
+                                        </picture>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-16.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-16.jpg">
+                                        </picture>
+                                        <h4>or</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-17.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-17.jpg">
+                                        </picture>
+                                        <h4>or</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-18.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-18.jpg">
+                                        </picture>
+                                        <h4>or</h4>
+                                        <picture>
+                                            <source srcset="imgp/icon2-3-19.webp" type="imgp/webp">
+                                            <img  src="img/icon2-3-19.jpg">
+                                        </picture>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th class="table_color_B table_textalign_C">
+                                        <h3>Step7.兌換NPC</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th class="table_color_M table_textalign_C">
+                                        <p>於活動期間內，可向下列NPC兌換所需物品</p>
+                                        <div class="Q_box marginB_1em NPC_box">
+                                            <div class="NPC">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-20.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-20.png">
+                                                </picture>
+                                                <p>沒睡醒的奧利維亞</p>
+                                            </div>
+                                            <div class="NPC">
+                                                <picture>
+                                                    <source srcset="imgp/icon2-3-21.webp" type="imgp/webp">
+                                                    <img  src="img/icon2-3-21.png">
+                                                </picture>
+                                                <p>夢遊商店老闆野貓</p>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>活動結束時間後，兌換NPC將變為使用偉大的小Q硬幣進行獎勵兌換。</li>
+                                <!-- 0511更改start -->
+                                <li>小Q神秘的夢、小Q甜甜的夢、小Q美味的夢及夢之硬幣於活動結束後將會自動刪除，請於活動期間內使用完畢。</li>
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2-4 part"  id="part2-4">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">最強王者公會</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動結束時，全伺服器等級最高的前五名公會可獲得特別獎勵。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/13 (四) 14:00 - 05/27 (四) 維護前</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>活動結束後依官網公告領取獎勵。</h4>
+                            <table class="reword table2-4">
+                                <tr>
+                                    <th width="20%" class="table_color_B table_textalign_C table_line_b">
+                                        <h4>公會名次第一名</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L table_line_b">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-4-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-4-1.jpg">
+                                            </picture>
+                                            <p>幸運強化石(不可交易)X50/人</p>
+                                        </div>
+                                    </th>
+                                    <th width="40%" class="table_color_W table_textalign_L" rowspan="5">
+                                        <p>強化概率比普通的強化石要高的幸運強化石。可以強化任意等級的裝備。</p>
+                                    </th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="20%" class="table_color_B table_textalign_C">
+                                        <h4>公會名次第二名</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-4-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-4-1.jpg">
+                                            </picture>
+                                            <p>幸運強化石(不可交易)X40/人</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="20%" class="table_color_B table_textalign_C">
+                                        <h4>公會名次第三名</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-4-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-4-1.jpg">
+                                            </picture>
+                                            <p>幸運強化石(不可交易)X30/人</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="20%" class="table_color_B table_textalign_C">
+                                        <h4>公會名次第四名</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-4-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-4-1.jpg">
+                                            </picture>
+                                            <p>幸運強化石(不可交易)X20/人</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="20%" class="table_color_B table_textalign_C">
+                                        <h4>公會名次第五名</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-4-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-4-1.jpg">
+                                            </picture>
+                                            <p>幸運強化石(不可交易)X10/人</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>每個帳號僅能領取一次，如一個帳號有不同名次之角色，則以名次最高來計算。</li>
+                                <li>於5/26 (三) 23:59 後加入已獲獎公會的玩家，將無法獲得本次活動獎勵。</li>
+                                <li>超過時間未領取視為放棄獎勵，恕不補發，請玩家特別注意。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫，領取後將會直接發送至遊戲內「領取道具」中。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2-5 part"  id="part2-5">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">王者之日開跑</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動期間內，全伺服器最高經驗值開放至300%! <br>6/6(日)於指定時間隨機抽選在線的主角等級60等以上玩家發送活動獎勵。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>06/01 (二) 00:00 - 06/07 (一) 23:59</h4>
+                            <div class="part_smalldec">活動內容</div>
+                            <!-- 0511更改start -->
+                            <h4><span class="get">領取方式</span>獎勵會直接以信件發送獎勵給中選者。</h4>
+                            <!-- 0511更改END -->
+                            <table class="reword table2-5">
+                                <tr>
+                                    <th class="table_textalign_C table_line_b">
+                                        <h3>活動一</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="10%" class="table_textalign_C">
+                                        <p>06/01 (二) 00:00 - 06/07 (一) 23:59<br>根據隊員人數經驗值增加200%-300%；王者行事曆經驗值增加300%；休養經驗值增加300%。</p>
+                                    </th>
+                                </tr>
+                            <table class="reword table2-5">
+                                <tr>
+                                    <th class="table_textalign_C table_line_b" colspan="4">
+                                        <h3>活動二</h3>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4"><p>6/6 (日)  於指定時間隨機抽選在線的60等以上主角發送驚喜箱子。</p></th></tr>
+                                <tr class="table_line_b">
+                                    <th width="10%" class="table_color_B table_textalign_C">
+                                        <h4>抽選時間</h4>
+                                    </th>
+                                    <th width="20%" class="table_color_M table_textalign_C">
+                                        <p>10:00、14:00、20:00、22:00</p>
+                                    </th>
+                                    <th width="10%" class="table_color_B table_textalign_C">
+                                        <h4>抽選時間</h4>
+                                    </th>
+                                    <th width="20%" class="table_color_M table_textalign_C">
+                                        <p>10:30、14:30、20:30、22:30</p>
+                                    </th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="10%" class="table_color_B table_textalign_C">
+                                        <h4>道具名稱</h4>
+                                    </th>
+                                    <th width="20%" class="table_color_M table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-5-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-5-1.jpg">
+                                            </picture>
+                                            <p>[活動]驚喜原石箱子</p>
+                                        </div>
+                                    </th>
+                                    <th width="10%" class="table_color_B table_textalign_C">
+                                        <h4>道具名稱</h4>
+                                    </th>
+                                    <th width="20%" class="table_color_M table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-5-2.webp" type="imgp/webp">
+                                                <img  src="img/icon2-5-2.jpg">
+                                            </picture>
+                                            <p>[活動]特殊驚喜原石箱子</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="10%" class="table_color_B table_textalign_C">
+                                        <h4>抽選人數</h4>
+                                    </th>
+                                    <th width="20%" class="table_color_M table_textalign_C">
+                                        <p>5人
+                                        </p>
+                                    </th>
+                                    <th width="10%" class="table_color_B table_textalign_C">
+                                        <h4>抽選人數</h4>
+                                    </th>
+                                    <th width="20%" class="table_color_M table_textalign_C">
+                                        <p>1人</p>
+                                    </th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>[活動]驚喜原石箱子、[活動]特殊驚喜原石箱子開啟後可獲得隨機數量的亞特拉斯原石，道具為不可交易形式。</li>
+                                <li>於活動時間內，登入即自動享有經驗值增加加成。</li>
+                                <li>被抽選中獎之玩家，遊戲內會公告並以信件方式發送獎勵。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2-6 part"  id="part2-6">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">首儲拿好禮</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>活動期間內，單筆儲值150點即可領取獎勵。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/13 (四) 14:00 - 05/31 (一) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>達成活動條件後，於 06/06 (日) 23:59 前至領獎專區領取獎勵。</h4>
+                            <table class="reword">
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-6-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-6-1.jpg">
+                                            </picture>
+                                            <p>五色靈魂補給箱<br>(不可交易)X30</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>開啟後可有機率獲得五色靈魂寶石或五色靈魂結晶，以及低機率可獲得希羅尼亞的水晶鏡。</p></th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>本活動獎勵方案，一個帳號僅能領取一次獎勵。</li>
+                                <li>超過時間未領取視為放棄獎勵，恕不補發，請玩家特別注意。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫，領取後將會直接發送至遊戲內「領取道具」中。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part2-7 part"  id="part2-7">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">消費放肆領</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>於活動期間內，遊戲內商城中消費累積達指定金額，即可領取獎勵。</h4>
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/13 (四) 14:00 - 05/31 (一) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>達成活動條件後，於 06/06 (日) 23:59 前至領獎專區領取獎勵。</h4>
+                            <table class="reword">
+                                <tr>
+                                    <th colspan="2"><h3>消費滿 450 點</h3></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-1.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-1.jpg">
+                                            </picture>
+                                            <p>[活動]三色糕<br>(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用時防禦力增加25%，效果持續60分鐘。</p></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-2.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-2.jpg">
+                                            </picture>
+                                            <p>[活動]清香抹茶<br>(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用時攻擊力增加25%，效果持續60分鐘。</p></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-3.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-3.jpg">
+                                            </picture>
+                                            <p>[活動]溫泉蛋<br>(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用時經驗值增加25%，效果持續60分鐘。</p></th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th colspan="2"><h3>消費滿 1000 點</h3></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-4.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-4.jpg">
+                                            </picture>
+                                            <p>倉庫啟動咒文書<br>(30天/不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用後可開啟1頁倉庫頁，最多可啟動6個倉庫，已啟動的倉庫無法透過此道具延長使用時間。</p></th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th colspan="2"><h3>消費滿 3000 點</h3></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-5.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-5.jpg">
+                                            </picture>
+                                            <p>新ACA-II 搜索機器人咒文書<br>(30天/不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>召喚自動搜索時，可一次搜索所有戰利品的新ACA-II搜索機器人。</p></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-6.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-6.jpg">
+                                            </picture>
+                                            <p>幻想畫廊入場券<br>(不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用後可進入幻想畫廊副本，持續30分鐘(可疊加使用)。每日上午6~7點無法進入幻想畫廊，請特別留意。</p></th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th colspan="2"><h3>消費滿 5000 點</h3></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-7.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-7.jpg">
+                                            </picture>
+                                            <p>純白禮包<br>(30天/不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>開啟後可獲得實用咒文書組合(30天/不可交易)、[純白]祝福咒文書(30天/不可交易)和增加活動傭兵咒文書(30天/不可交易)。</p></th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th colspan="2"><h3>消費滿 10000 點</h3></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-8.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-8.jpg">
+                                            </picture>
+                                            <p>亞特拉斯刻印石<br>(不可交易)X50</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>右擊使用，即可進行刻印。</p></th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-6.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-6.jpg">
+                                            </picture>
+                                            <p>幻想畫廊入場券<br>(不可交易)X4</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用後可進入幻想畫廊副本，持續30分鐘(可疊加使用)。每日上午6~7點無法進入幻想畫廊，請特別留意。</p></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-9.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-9.jpg">
+                                            </picture>
+                                            <p> +10 黑水晶裝備箱<br>(不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>開啟後自選一把+10 黑水晶武器。</p></th>
+                                </tr>
+                            </table>
+                            <table class="reword">
+                                <tr>
+                                    <th colspan="2"><h3>消費滿 18000 點</h3></th>
+                                </tr>
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon2-7-10.webp" type="imgp/webp">
+                                                <img  src="img/icon2-7-10.jpg">
+                                            </picture>
+                                            <p>黃昏之息X1</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>翅膀裝飾。穿戴後提升主角攻擊力：2800-3000；防禦力：500；力量、敏捷、智力：85；體力：560；觸發魔法：光之咆哮 Lv20。</p></th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>本活動獎勵方案，一個帳號僅能領取一次獎勵。</li>
+                                <li>超過時間未領取視為放棄獎勵，恕不補發，請玩家特別注意。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫，領取後將會直接發送至遊戲內「領取道具」中。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab3" class="tab_content">
+                <div class="scrollspy_box">
+                    <div data-scroll="part0" class="scrollspy_item" href="#part0">
+                        <p class="scrollspy_p">回到首頁</p>
+                    </div>
+                    <div data-scroll="part3-1" class="scrollspy_item active fristevent" href="#part3-1">
+                        <p class="scrollspy_p p_active">攻略募集大作戰</p>
+                    </div>
+                    <div data-scroll="part3-2" class="scrollspy_item" href="#part3-2">
+                        <p class="scrollspy_p">最OP英雄我來挺</p>
+                    </div>
+                    <div data-scroll="part3-3" class="scrollspy_item" href="#part3-3">
+                        <p class="scrollspy_p">OX快問快答挑戰</p>
+                    </div>
+                    <div data-scroll="part3-4" class="scrollspy_item" href="#part3-4">
+                        <p class="scrollspy_p">NO.1師徒成就賞</p>
+                    </div>
+                </div>
+                <div class="part3-1 part"  id="part3-1">
+                    <div class="part_box">
+                        <h1 class="tab_title">精彩社群活動</h1>
+                        <div class="part_content">
+                            <div class="part_title">攻略募集大作戰</div>
+                            <div class="part_dec"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <!-- 0511修改 start -->
+                            <h4>玩家填寫粉絲團貼文內的 Google 表單，在表單內上傳自己的遊戲攻略，<br>經官方評審入選者可獲得獎勵。<a target="_blank" href="https://forms.gle/BLvQ5JmjqdJvCeKd8" class="info" target="_blank">我要投稿</a></h4>
+                            <!-- 0511修改 end -->
+                            <div class="part_smalldec">活動時間</div>
+                            <!-- 0511更改start -->
+                            <h4>永久募集</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>獎勵於攻略文確定入選，並上刊至百科後7天內發送至角色信箱內。</h4>
+                            <!-- 0511更改END -->
+                            <table class="reword">
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-1-1.webp" type="imgp/webp">
+                                                <img  src="img/icon3-1-1.jpg">
+                                            </picture>
+                                            <p>亞特拉斯原石X200</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>點擊滑鼠右鍵，可使用各種豐富的功能。</p></th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>每個遊戲帳號皆能重複參加。</li>
+                                <li>若抄襲、盜取他人之文章，非自己撰寫，將直接失去活動資格。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part3-2 part"  id="part3-2">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">最OP英雄我來挺</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <!-- 0511更改start -->
+                            <!-- 0511修改 start -->
+                            <h4>於活動期間內，玩家截圖自己的任一傭兵，於粉絲團本活動貼文下方留言並上傳截圖，將從每個傭兵支持者中各抽出一名得獎者。<a href="javascript:alert('詳細活動資訊將於5/13(四)公布，敬請期待');" class="info">前往活動</a></h4>
+                            <!-- 0511修改 end -->
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>5/13 (四) - 5/23 (日) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>獎勵將於得獎名單公布後七日內發送至帳號「領取道具」內。</h4>
+                            <!-- 0511更改END -->
+                            <table class="reword">
+                                <tr>
+                                    <th width="30%" class="table_color_B table_textalign_C">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-2-1.webp" type="imgp/webp">
+                                                <img  src="img/icon3-2-1.jpg">
+                                            </picture>
+                                            <p>武人成長古書<br>(傭兵專用)<br>(不可交易)X3</p>
+                                        </div>
+                                    </th>
+                                    <th width="70%" class="table_color_M table_textalign_L"><p>使用的傭兵可增加15億經驗值。</p></th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>一個掘夢網帳號、FB帳號僅能參加一次活動。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫。</li>
+                                <li>活動詳情以粉絲團活動貼文為主。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part3-3 part"  id="part3-3">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">OX快問快答挑戰</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <!-- 0511更改start -->
+                            <!-- 0511修改 start -->
+                            <h4>於活動期間內，玩家於遊戲中參與OX活動，截圖上傳至粉絲團本活動貼文下方留言，即可獲得獎勵，存活至最後的玩家可另外獲得獎勵。<a href="javascript:alert('詳細活動資訊將於5/24(一)公布，敬請期待');" class="info">前往活動</a></h4>
+                            <!-- 0511修改 end -->
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>05/28 (五) 20:00-20:30</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <h4><span class="get">領取方式</span>獎勵將於得獎名單公布後七日內發送至帳號「領取道具」內。 </h4>
+                            <!-- 0511修改 start -->
+                            <table class="reword table3-4">
+                                <tr class="table_line_b">
+                                    <th width="15%" class="table_color_B table_textalign_C">
+                                        <h4>參加獎</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-3-1.webp" type="imgp/webp">
+                                                <img  src="img/icon3-3-1.jpg">
+                                            </picture>
+                                            <p>偉大的小Q硬幣(不可交易)X3</p>
+                                        </div>
+                                    </th>
+                                    <th width="45%" class="table_color_W table_textalign_L">
+                                        <p>可從慶典 NPC中交換多物品的值錢硬幣</p>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="15%" class="table_color_B table_textalign_C">
+                                        <h4>最後存活者</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-3-2.webp" type="imgp/webp">
+                                                <img  src="img/icon3-3-2.jpg">
+                                            </picture>
+                                            <p>裝飾隨機寶箱<br>(C級/不可交易)X1</p>
+                                            <!-- 0511更改END -->
+                                        </div>
+                                    </th>
+                                    <th width="45%" class="table_color_W table_textalign_L">
+                                        <p>開啟後可隨機獲得一個C級的裝飾品。</p>
+                                    </th>
+                                </tr>
+                            </table>
+                            <!-- 0511修改 start -->
+                            <!-- 0511更改start -->
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>一個掘夢網帳號、FB帳號皆能重複參加，但每項獎勵皆只能獲得一次。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫。</li>
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div class="part3-4 part"  id="part3-4">
+                    <div class="part_box_2">
+                        <div class="part_content part_content_2">
+                            <div class="part_title part_title_2">NO.1師徒成就賞</div>
+                            <div class="part_dec part_dec_2"></div>
+                            <div class="part_smalldec">活動說明</div>
+                            <!-- 0511更改start -->
+                            <!-- 0511修改 start -->
+                            <h4>於活動期間內，玩家於遊戲中與其他玩家組成師徒，將師徒畫面截圖上傳，並留言師徒雙方之ID，即可獲得獎勵，額外再抽三組師徒獲得幸運師徒獎。<a href="javascript:alert('詳細活動資訊將於6/4(五)公布，敬請期待');" class="info">前往活動</a></h4>
+                            <!-- 0511修改 end -->
+                            <!-- 0511更改END -->
+                            <div class="part_smalldec">活動時間</div>
+                            <h4>06/04 (五) - 06/13 (日) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <!-- 0511更改start -->
+                            <h4><span class="get">領取方式</span>獎勵將於得獎名單公布後七日內發送至帳號「領取道具」內。</h4>
+                            <!-- 0511更改END -->
+                            <table class="reword table3-4">
+                                <tr class="table_line_b">
+                                    <th width="15%" class="table_color_B table_textalign_C">
+                                        <h4>最佳導師獎</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-4-1.webp" type="imgp/webp">
+                                                <img  src="img/icon3-4-1.jpg">
+                                            </picture>
+                                            <p>2倍任務經驗咒文書<br>(1天/不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                    <th width="45%" class="table_color_W table_textalign_L">
+                                        <p>效果期間可獲得2倍怪物經驗值。</p>
+                                    </th>
+                                </tr>
+                                <tr class="table_line_b">
+                                    <th width="15%" class="table_color_B table_textalign_C">
+                                        <h4>最佳學徒獎</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-4-2.webp" type="imgp/webp">
+                                                <img  src="img/icon3-4-2.jpg">
+                                            </picture>
+                                            <p>3倍任務經驗咒文書<br>(30分鐘/不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                    <th width="45%" class="table_color_W table_textalign_L">
+                                        <p>效果期間可獲得3倍怪物經驗值。<br>※無法與2倍經驗咒文書重複使用。</p>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th width="15%" class="table_color_B table_textalign_C">
+                                        <h4>幸運師徒獎</h4>
+                                    </th>
+                                    <th width="40%" class="table_color_M table_textalign_L">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon3-4-3.webp" type="imgp/webp">
+                                                <img  src="img/icon3-4-3.jpg">
+                                            </picture>
+                                            <p>偉大的小Q硬幣(不可交易)X5</p>
+                                        </div>
+                                    </th>
+                                    <th width="45%" class="table_color_W table_textalign_L">
+                                        <p>可從慶典NPC中交換多物品的值錢硬幣。</p>
+                                    </th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <li>一個掘夢網帳號、FB帳號僅能參加一次活動。</li>
+                                <li>活動獎勵為「不可交易」性質但可存放於倉庫。</li>
+                                <li>活動詳情以粉絲團活動貼文為主。</li>
+                                <!-- 0511更改start -->
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tab4" class="tab_content">
+                <div class="scrollspy_box">
+                    <!-- 0505修改 start -->
+                <div class="totop scrollspy_item" data-scroll="part0" href="#part0">TOP</div>
+                <!-- 0505修改 end -->
+                </div>
+                <div class="part4 part"  id="part4">
+                    <div class="part_box">
+                        <h1 class="tab_title">師徒成就之路</h1>
+                        <div class="part_content">
+                            <div class="part4_Box">
+                                <?php if($_COOKIE["StrID"]){ ?>
+                                <form id="logout-form" action="https://www.digeam.com/logout" method="POST" style="display: none;">
+                                    <input type="hidden" name="return_url" id="return_url" value="<?php echo base64_encode('https://'.$_SERVER[HTTP_HOST].$_SERVER[REQUEST_URI]); ?>">
+                                </form>
+                                <div class="sign_block">
+                                    <button onclick="logout_submit()">登出</button>
+                                    <p>Hi,<?php echo $_COOKIE["StrID"]; ?></p>
+                                </div>
+                                <?php }else{ ?>
+                                <div class="sign_block">
+                                    <button onclick="location.href='/script/login.html'">登入綁定</button>
+                                </div>
+                                <?php } ?>
+                                <div class="yournumber">
+                                    <input type="text" placeholder="自動出現該帳號的綁定碼" class="input_area" id="invite_code" readonly="readonly">
+                                    <h3>已有<span id="match_cnt">0</span>人與您綁定</h3>
+                                </div>
+                                <div class="friendnumber">
+                                    <input type="text" placeholder="徒弟輸入綁定碼" class="input_area" id="enter_code">
+                                    <button id="match_btn">送出</button>
+                                </div>
+                            </div>
+                            <div class="part_smalldec">活動說明</div>
+                            <!-- 0511更改start -->
+                            <h4>活動期間內，於網頁中完成師徒綁定，並完成網頁中的指定任務，達成指定條件後，系統將自動發送獎勵。</h4>
+                            <!-- 0511更改END -->
+                            <div class="part_smalldec">活動說明</div>
+                            <h4>05/13 (四) 14:00 - 06/10 (四) 23:59</h4>
+                            <div class="part_smalldec">活動獎勵</div>
+                            <!-- 0512修改 start -->
+                            <!-- 0511更改start -->
+                            <h4><span class="get">領取方式</span>達成條件並重新整理網頁後，獎勵道具將自動發送至「領取道具」。</h4>
+                            <!-- 0511更改END -->
+                            <!-- 0512修改 END -->
+                            <div class="part_smalldec2">師傅任務清單</div>
+                            <table class="reword table4">
+                                <tr class="table_color_B table_textalign_C">
+                                    <!-- 0510更改區 start -->
+                                    <th width="52%">
+                                        <h4>任務名稱</h4>
+                                    </th>
+                                    <th width="12%"><h4>積分</h4></th>
+                                    <th width="18%"><h4>完成人數</h4></th>
+                                    <th width="18%"><h4>總積分</h4></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟完成參加一次LOA</p>
+                                    </th>
+                                    <th width="12%"><p>5</p></th>
+                                    <th width="18%"><p id="mm1_cnt">0</p></th>
+                                    <th width="18%"><p id="mm1_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟完成一次裝備分析</p>
+                                    </th>
+                                    <th width="12%"><p>10</p></th>
+                                    <th width="18%"><p id="mm2_cnt">0</p></th>
+                                    <th width="18%"><p id="mm2_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟啟動三次奧林帕斯塔</p>
+                                    </th>
+                                    <th width="12%"><p>10</p></th>
+                                    <th width="18%"><p id="mm3_cnt">0</p></th>
+                                    <th width="18%"><p id="mm3_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟加入任一公會</p>
+                                    </th>
+                                    <th width="12%"><p>5</p></th>
+                                    <th width="18%"><p id="mm4_cnt">0</p></th>
+                                    <th width="18%"><p id="mm4_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩總時長達25小時</p>
+                                    </th>
+                                    <th width="12%"><p>5</p></th>
+                                    <th width="18%"><p id="mm5_cnt">0</p></th>
+                                    <th width="18%"><p id="mm5_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩總時長達50小時</p>
+                                    </th>
+                                    <th width="12%"><p>10</p></th>
+                                    <th width="18%"><p id="mm6_cnt">0</p></th>
+                                    <th width="18%"><p id="mm6_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩遊玩總時長達80小時</p>
+                                    </th>
+                                    <th width="12%"><p>20</p></th>
+                                    <th width="18%"><p id="mm7_cnt">0</p></th>
+                                    <th width="18%"><p id="mm7_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩等級達到80</p>
+                                    </th>
+                                    <th width="12%"><p>5</p></th>
+                                    <th width="18%"><p id="mm8_cnt">0</p></th>
+                                    <th width="18%"><p id="mm8_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩等級達到100</p>
+                                    </th>
+                                    <th width="12%"><p>5</p></th>
+                                    <th width="18%"><p id="mm9_cnt">0</p></th>
+                                    <th width="18%"><p id="mm9_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩等級達到120</p>
+                                    </th>
+                                    <th width="12%"><p>10</p></th>
+                                    <th width="18%"><p id="mm10_cnt">0</p></th>
+                                    <th width="18%"><p id="mm10_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟遊玩等級達到140</p>
+                                    </th>
+                                    <th width="12%"><p>20</p></th>
+                                    <th width="18%"><p id="mm11_cnt">0</p></th>
+                                    <th width="18%"><p id="mm11_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟銀行存款達到1億元</p>
+                                    </th>
+                                    <th width="12%"><p>10</p></th>
+                                    <th width="18%"><p id="mm12_cnt">0</p></th>
+                                    <th width="18%"><p id="mm12_point">0</p></th>
+                                </tr>
+                                <tr class="table_line_b table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <!-- $0510修改 -->
+                                        <p>徒弟釣魚點數達到500點</p>
+                                    </th>
+                                    <th width="12%"><p>10</p></th>
+                                    <th width="18%"><p id="mm13_cnt">0</p></th>
+                                    <th width="18%"><p id="mm13_point">0</p></th>
+                                </tr>
+                                <tr class="table_color_M table_textalign_C">
+                                    <th width="52%">
+                                        <p>徒弟消費任意金額</p>
+                                    </th>
+                                    <th width="12%"><p>20</p></th>
+                                    <th width="18%"><p id="mm14_cnt">0</p></th>
+                                    <th width="18%"><p id="mm14_point">0</p></th>
+                                </tr>
+                                <!-- 0510更改區 end -->
+                            </table>
+                            <div class="part_smalldec2">師傅任務獎勵</div>
+                            <table class="reword table4-2">
+                                <tr class="table_textalign_C table_color_B ">
+                                    <th width="20%"><h4>達到積分</h4></th>
+                                    <th width="80%"><h4>獎勵</h4></th>
+                                </tr>
+                                <tr id="p20" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>20</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-1.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-1.jpg">
+                                            </picture>
+                                            <p>[活動]愛情巧克力(不可交易)X3+</p>
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-2.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-2.jpg">
+                                            </picture>
+                                            <p>[活動]友情巧克力(不可交易)X3</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p50" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>50</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-3.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-3.jpg">
+                                            </picture>
+                                            <p>女神的生命聖水(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p100" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>100</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-4.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-4.jpg">
+                                            </picture>
+                                            <p>五色靈魂補給箱(不可交易)X30</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p150" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>150</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-5.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-5.jpg">
+                                            </picture>
+                                            <p>黑水晶武器禮物箱(不可交易)X2+</p>
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-6.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-6.jpg">
+                                            </picture>
+                                            <p>黑水晶強化石X200</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p200" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>200</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-7.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-7.jpg">
+                                            </picture>
+                                            <p>[普通]新法式烹調宴會(不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p250" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>250</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-8.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-8.jpg">
+                                            </picture>
+                                            <p>[活動]+7武器自選箱(不可交易)X3</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p300" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>300</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-9.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-9.jpg">
+                                            </picture>
+                                            <p>[活動]成長靈藥(不可交易)X50</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p400" class="table_textalign_C table_line_b">
+                                    <th width="20%" class="table_color_M"><p>400</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-6.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-6.jpg">
+                                            </picture>
+                                            <p>黑水晶強化石X300</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="p500" class="table_textalign_C">
+                                    <th width="20%" class="table_color_M"><p>500</p></th>
+                                    <th width="80%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-10.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-10.jpg">
+                                            </picture>
+                                            <p>每日幻想畫廊入場券(30天/不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec2">徒弟任務清單</div>
+                            <table class="reword table4-2">
+                                <tr class="table_textalign_C table_color_B ">
+                                    <th width="25%"><h4>任務名稱</h4></th>
+                                    <th width="15%"><h4>完成進度</h4></th>
+                                    <th width="60%"><h4>任務獎勵</h4></th>
+                                </tr>
+                                <tr id="sm1" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>參加一次LOA</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm1_cnt">0</span>/1)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-11.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-11.jpg">
+                                            </picture>
+                                            <p>蛋糕箱子(不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm2" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>完成一次裝備分析</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm2_cnt">0</span>/1)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-11.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-11.jpg">
+                                            </picture>
+                                            <p>蛋糕箱子(不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm3" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>啟動三次奧林帕斯塔</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm3_cnt">0</span>/3)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-3.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-3.jpg">
+                                            </picture>
+                                            <p>女神的生命聖水(不可交易)X10</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm4" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>加入任一公會</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm4_cnt">0</span>/1)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-13.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-13.jpg">
+                                            </picture>
+                                            <p>[普通]急速成長宴會(不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm5" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>遊玩總時長達25小時</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm5_cnt">0</span>/25)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-14.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-14.jpg">
+                                            </picture>
+                                            <p>[活動]愛情巧克力(不可交易)X3</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm6" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>遊玩總時長達50小時</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm6_cnt">0</span>/50)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-15.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-15.jpg">
+                                            </picture>
+                                            <p>[活動]友情巧克力(不可交易)X3</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm7" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>遊玩總時長達80小時</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm7_cnt">0</span>/80)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-16.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-16.jpg">
+                                            </picture>
+                                            <p>新ACA-II 搜索機器人咒文書(7天/不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm8" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>等級達到80</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm8_cnt">0</span>/80)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-17.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-17.jpg">
+                                            </picture>
+                                            <p>能量恢復石[100%](不可交易)X1</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm9" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>等級達到100</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm9_cnt">0</span>/100)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-18.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-18.jpg">
+                                            </picture>
+                                            <p>成長靈藥[Lv.3](不可交易)X30</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm10" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>等級達到120</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm10_cnt">0</span>/120)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-19.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-19.jpg">
+                                            </picture>
+                                            <p>幸運信封(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm11" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>等級達到140</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm11_cnt">0</span>/140)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-20.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-20.jpg">
+                                            </picture>
+                                            <p>Lv.140 防具箱(不可交易)X5+</p>
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-21.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-21.jpg">
+                                            </picture>
+                                            <p>Lv.140 武器箱(不可交易)X5</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm12" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>銀行存款達到1億元</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm12_cnt">0</span>/100000000)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-19.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-19.jpg">
+                                            </picture>
+                                            <p>幸運信封(不可交易)X20</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm13" class="table_textalign_C table_line_b">
+                                    <!--0510修改區 --><th width="25%" class="table_color_M"><p>釣魚點數達到500點</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm13_cnt">0</span>/500)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-11.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-11.jpg">
+                                            </picture>
+                                            <p>蛋糕箱子(不可交易)X2</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr id="sm14" class="table_textalign_C table_line_b">
+                                    <th width="25%" class="table_color_M"><p>消費任意金額</p></th>
+                                    <th width="15%" class="table_color_M"><p>(<span id="sm14_cnt">0</span>/1)</p></th>
+                                    <th width="60%" class="table_color_W">
+                                        <div class="icon_box">
+                                            <picture>
+                                                <source srcset="imgp/icon4-1-4.webp" type="imgp/webp">
+                                                <img  src="img/icon4-1-4.jpg">
+                                            </picture>
+                                            <p>五色靈魂補給箱(不可交易)X5</p>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </table>
+                            <div class="part_smalldec">注意事項</div>
+                            <ol>
+                                <!-- 0512修改 start -->
+                                <li>每名玩家只能輸入代碼綁定一位玩家作為師傅，但可以被多位玩家綁定成為師傅。<br>※ 每個帳號僅有一組綁定代碼。</li>
+                                <!-- 0512修改 END -->
+                                <li>徒弟的任務清單完成進度為上限，即使他超過進度所需目標數量，也不能幫師傅獲得更高積分。<br>※ 舉例：挑戰三次歷史入侵，同一名徒弟完成六次，師傅也只會計算此人有完成此任務一次，而獲得10積分。若師傅想要獲得更多積分，可以認領更多徒弟。</li>
+                                <li>若徒弟因違反遊戲規章遭到停權，將剝奪已完成任務進度，師傅從此徒弟獲得的積分也將排除。</li>
+                                <!-- 0511更改start -->
+                                <li>本活動師傅及徒弟任務各階段獎勵每個帳號皆僅能獲取一次。</li>
+                                <li>掘夢網保有終止、變更以及解釋活動規則的最終權利。</li>
+                                <!-- 0511更改END -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+		<div class="footerwrap">
+			<div class="logo-container">
+				<a href="https://www.digeam.com/" target="_blank" class="digeam-logo">DiGeam</a>
+				<a class="company-logo joymax">VFUN</a>
+                <a class="company-logo joymax2">Valofe</a>
+			</div>
+			<div class="dgcopy-container">
+
+				<p class="dg-name">掘夢網股份有限公司 © <span id="getyear"></span></p>
+				<!----------------------年份運算---------------------->
+				<script type="text/javascript">
+					var ndate = new Date();
+					var nyear = ndate.getFullYear();
+					document.getElementById("getyear").innerHTML = nyear;
+				</script>
+
+				<p class="dg-copyright">Copyright © DiGeam Corporation. All Rights Reserved.</p>
+
+				<div class="dg-mail">客服信箱: <a href="https://www.digeam.com/cs" target="_blank">www.digeam.com/cs</a> | 官方網站: <a href="https://www.digeam.com" target="_blank">www.digeam.com</a></div>
+			</div>
+			<div class="grade">
+				<img src="img/15plus.png">
+				<ul>
+					<li>本遊戲為免費使用，部分內容涉及暴力情節。</li>
+					<li>遊戲內另提供購買虛擬遊戲幣、物品等付費服務。</li>
+					<li>請注意遊戲時間，避免沉迷。</li>
+					<li style="color: #e5be7b;">本遊戲服務區域包含台灣、香港、澳門。</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/main.js?v=<?php echo $jsversion; ?>"></script>
+    <script src="js/core.js?v=<?php echo $jsversion; ?>"></script>
+    <?php
+        $ua = htmlentities($_SERVER['HTTP_USER_AGENT'], ENT_QUOTES, 'UTF-8');
+        if (preg_match('~MSIE|Internet Explorer~i', $ua) || (strpos($ua, 'Trident/7.0') !== false && strpos($ua, 'rv:11.0') !== false)) {
+    ?>
+    <script type="text/javascript">
+        document.documentElement.classList.add('no-webp');
+    </script>
+    <?php
+        } else {
+    ?>
+    <script src="/js/webp-detect.js"></script>
+    <?php
+        }
+    ?>
+    <?php
+        if($_GET['utm_source'] != '') {
+    ?>
+    <script>
+        var wcf = "<?php echo $_GET['utm_source']; ?>";
+        var utm_medium = "<?php echo $_GET['utm_medium']; ?>";
+        var utm_campaign = "<?php echo $_GET['utm_campaign']; ?>";
+        var utm_term = "<?php echo $_GET['utm_term']; ?>";
+        var utm_content = "<?php echo $_GET['utm_content']; ?>";
+        document.cookie = "utm_source=" + wcf + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_medium=" + utm_medium + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_campaign=" + utm_campaign + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_term=" + utm_term + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_content=" + utm_content + "; expires=0; path=/; domain=.digeam.com;";
+    </script>
+    <script src="/js/wcf.js"></script>
+    <?php
+        } else {
+    ?>
+    <script>
+        var wcf = "《王者世界 Online》 官方網站-OBT活動頁";
+        var utm_medium = "《王者世界 Online》 官方網站-OBT活動頁";
+        var utm_campaign = "《王者世界 Online》 官方網站-OBT活動頁";
+        var utm_term = "《王者世界 Online》 官方網站-OBT活動頁";
+        var utm_content = "《王者世界 Online》 官方網站-OBT活動頁";
+        document.cookie = "utm_source=" + wcf + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_medium=" + utm_medium + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_campaign=" + utm_campaign + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_term=" + utm_term + "; expires=0; path=/; domain=.digeam.com;";
+        document.cookie = "utm_content=" + utm_content + "; expires=0; path=/; domain=.digeam.com;";
+    </script>
+    <script src="/js/wcf.js"></script>
+    <?php
+        }
+    ?>
+</body>
+</html>
